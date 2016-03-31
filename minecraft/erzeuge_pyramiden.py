@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 # --------------------------------------
 #
 #     Raspberry Pi Minecraft
@@ -48,27 +48,27 @@ def erzeuge_pyramide(position_x, position_y, position_z, breite, basis, wand, bl
     height = (breite + 1) / 2
     halbe_breite = int(math.floor(breite / 2))
 
-    print "Spieler : {} {} {}".format(position_x, position_y, position_z)
-    print "Größe : {} Höhe : {} Halbebreite : {}".format(breite, height, halbe_breite)
+    print("Spieler : {} {} {}".format(position_x, position_y, position_z))
+    print("Größe : {} Höhe : {} Halbebreite : {}".format(breite, height, halbe_breite))
 
-    # Erzeuge Basis der Pyramie
-    print "Erzeuge Basis"
+    # Erzeuge Basis der Pyramide
+    print("Erzeuge Basis")
     minecraft.setBlocks(position_x - halbe_breite - 2, position_y - 2, position_z - halbe_breite - 2, position_x + halbe_breite + 2, position_y - 2, position_z + halbe_breite + 2,
                         DRECK)
     minecraft.setBlocks(position_x - halbe_breite - 2, position_y - 1, position_z - halbe_breite - 2, position_x + halbe_breite + 2, position_y - 1, position_z + halbe_breite + 2,
                         basis)
 
     # Erzeuge Pyramide
-    print "Erzeuge Pyramid"
+    print("Erzeuge Pyramide")
     for y in range(position_y, position_y + height):
         minecraft.setBlocks(position_x - halbe_breite, y, position_z - halbe_breite, position_x + halbe_breite, y, position_z + halbe_breite, wand)
         halbe_breite = halbe_breite - 1
 
     # Wechsel zu Spitzenblock
-    print "Welchsel zu top block"
+    print("Welchsel zu top block")
     minecraft.setBlock(position_x, position_y + height - 1, position_z, block_oben)
 
-    print "Positioniere Spieler oben"
+    print("Positioniere Spieler oben")
     minecraft.player.setPos(position_x, position_y + height, position_z)
 
 

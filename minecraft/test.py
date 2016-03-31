@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 # --------------------------------------
 #
 #     Minecraft Python API
@@ -25,11 +25,11 @@ spieler_position = minecraft.player.getTilePos()
 # Nachricht versenden
 minecraft.postToChat("Teste Würfel und Spieler Position!")
 
-# Change block
-print "Erzeuge 3 x 3 Würfel aus Stein"
+# Verändere Block
+print("Erzeuge 3 x 3 Würfel aus Stein")
 minecraft.setBlocks(spieler_position.x - 1, spieler_position.y, spieler_position.z - 1, spieler_position.x + 1, spieler_position.y + 2, spieler_position.z + 1, block.STONE)
 
-print "Position des Spielers um drei Blöcke verändern"
+print("Position des Spielers um drei Blöcke verändern")
 minecraft.player.setPos(spieler_position.x, spieler_position.y + 3, spieler_position.z)
 
-minecraft.postToChat("Move and have another go.")
+minecraft.postToChat("Bewege und lasse nochmal laufen.")

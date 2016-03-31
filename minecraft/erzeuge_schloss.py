@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 # --------------------------------------
 #
 #     Minecraft Python API
@@ -126,17 +126,17 @@ def erzeuge_fenster(x, y, z, dir):
 #
 # --------------------------------------
 
-print "Erzeuge Boden und Graben"
+print("Erzeuge Boden und Graben")
 erzeuge_landschaft(33, 10, 23)
 
-print "Erzeuge Außenwände"
+print("Erzeuge Außenwände")
 erzeuge_wände(21, 1, 5, block.STONE_BRICK, True, True)
 
-print "Erzeuge Innenwände"
+print("Erzeuge Innenwände")
 erzeuge_wände(13, 1, 6, block.STONE_BRICK, True, True)
 
-print "Erzeuge Turm mit 4 Ebenen"
+print("Erzeuge Turm mit 4 Ebenen")
 erzeuge_turm(5, 1, 4)
 
-print "Setze Spieler in den Gehweg des Ganges"
+print("Setze Spieler in den Gehweg des Ganges")
 minecraft.player.setPos(0, 30, 4)

@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 # --------------------------------------
 #
 #     Raspberry Pi Minecraft
@@ -36,7 +36,7 @@ def sende_nachricht(msg):
     # cad.lcd.clear()
     msg_one_line = msg.replace('\n', ' ')
     minecraft.postToChat(msg_one_line)
-    print msg_one_line
+    print(msg_one_line)
     # cad.lcd.write(msg)
 
 
