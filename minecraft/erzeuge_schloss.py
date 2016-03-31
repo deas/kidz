@@ -129,7 +129,7 @@ def erzeuge_fenster(x, y, z, dir):
 print("Erzeuge Boden und Graben")
 erzeuge_landschaft(33, 10, 23)
 
-print("Erzeuge Außenwaende")
+print("Erzeuge Aussenwaende")
 erzeuge_waende(21, 1, 5, block.STONE_BRICK, True, True)
 
 print("Erzeuge Innenwaende")
