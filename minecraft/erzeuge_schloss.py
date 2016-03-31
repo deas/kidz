@@ -30,7 +30,7 @@ minecraft.postToChat("Erzeuge ein Schloss!")
 
 def erzeuge_waende(groesse, basis_hoehe, hoehe, material, zinnen, gehweg):
     # Erzeuge 4 Waende mit Breite, Hoehe und Material.
-    # Zinnen und Gehwege können an den Oberkanten hinzufuegt werden.
+    # Zinnen und Gehwege koennen an den Oberkanten hinzufuegt werden.
 
     minecraft.setBlocks(-groesse, basis_hoehe + 1, -groesse, groesse, basis_hoehe + hoehe, -groesse, material)
     minecraft.setBlocks(-groesse, basis_hoehe + 1, -groesse, -groesse, basis_hoehe + hoehe, groesse, material)
