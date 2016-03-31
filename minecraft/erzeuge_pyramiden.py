@@ -49,7 +49,7 @@ def erzeuge_pyramide(position_x, position_y, position_z, breite, basis, wand, bl
     halbe_breite = int(math.floor(breite / 2))
 
     print("Spieler : {} {} {}".format(position_x, position_y, position_z))
-    print("Groeße : {} Hoehe : {} Halbebreite : {}".format(breite, height, halbe_breite))
+    print("Groesse : {} Hoehe : {} Halbebreite : {}".format(breite, height, halbe_breite))
 
     # Erzeuge Basis der Pyramide
     print("Erzeuge Basis")
