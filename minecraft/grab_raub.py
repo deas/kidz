@@ -1,10 +1,10 @@
-#!/usr/bin/python3
+#!/usr/bin/python
 # --------------------------------------
 #
 #     Minecraft Python API
 #        Grab Raub
 #
-# Dieses Skript platziert zufällig Gräber welche
+# Dieses Skript platziert zufaellig Graeber welche
 # der Spieler finden soll.
 #
 # Autor : Matt Hawkins
@@ -31,10 +31,10 @@ def ermittle_grab_position():
     # Find Ort für Grab
     suche = True
     while suche == True:
-        # Zufälliger x,z Ort
+        # Zufaelliger x,z Ort
         x = random.randint(-120, 120)
         z = random.randint(-120, 120)
-        # Ermittle Höhe des ersten "Nicht-Luft" Blockes in Spalte
+        # Ermittle Hoehe des ersten "Nicht-Luft" Blockes in Spalte
         y = minecraft.getHeight(x, z) - 1
 
         # Teste gefundenen Block
@@ -48,48 +48,48 @@ def ermittle_grab_position():
     return position
 
 
-def erzeuge_grab(position, größe, tiefe, material, schatz):
-    # Erzeuge grab an einer Position mit einem Material
-    x1 = position[0] + (größe / 2)
+def erzeuge_grab(position, groesse, tiefe, material, schatz):
+    # Erzeuge ein Grab an einer Position mit einem Material
+    x1 = position[0] + (groesse / 2)
     y1 = position[1] - tiefe
-    z1 = position[2] + (größe / 2)
-    x2 = position[0] - (größe / 2)
-    y2 = position[1] - tiefe - größe
-    z2 = position[2] - (größe / 2)
+    z1 = position[2] + (groesse / 2)
+    x2 = position[0] - (groesse / 2)
+    y2 = position[1] - tiefe - groesse
+    z2 = position[2] - (groesse / 2)
     minecraft.setBlocks(x1, y1, z1, x2, y2, z2, material)
     minecraft.setBlocks(x1 - 1, y1 - 1, z1 - 1, x2 + 1, y2 + 1, z2 + 1, block.AIR.id)
 
-    # Füege dem Grab Schatz an Position hinzu
+    # Fuege dem Grab Schatz an Position hinzu
     x = position[0]
-    y = position[1] - (größe - 1) - tiefe
+    y = position[1] - (groesse - 1) - tiefe
     z = position[2]
-    minecraft.setBlock(position[0], position[1] - tiefe - größe + 1, position[2], schatz)
+    minecraft.setBlock(position[0], position[1] - tiefe - groesse + 1, position[2], schatz)
     # Gebe Position des Schatz Blockes zurück
     return [x, y, z]
 
 
 def setze_marker(position, material):
-    # Setze Marker über das Grab
+    # Setze Marker ueber das Grab
     minecraft.setBlock(position[0], position[1] + 20, position[2], material)
 
 
-def aktualisiere_schätze(schatz_liste):
-    schätze = []
+def aktualisiere_schaetze(schatz_liste):
+    schaetze = []
 
     for schatz in schatz_liste:
         position = schatz[0]
-        größe = schatz[1]
+        groesse = schatz[1]
         tiefe = schatz[2]
         x = position[0]
-        y = position[1] - (größe - 1) - tiefe
+        y = position[1] - (groesse - 1) - tiefe
         z = position[2]
         if minecraft.getBlock(x, y, z) == block.AIR.id:
             # Schatz verschwunden
             time.sleep(1)
         else:
-            schätze.append(schatz)
+            schaetze.append(schatz)
 
-    return schätze
+    return schaetze
 
 
 # --------------------------------------
@@ -104,13 +104,13 @@ random.seed
 
 schatzliste = []
 
-grab_zähler = 8
+grab_zaehler = 8
 
-minecraft.postToChat("Lass uns Gräber ausrauben!!")
+minecraft.postToChat("Lass uns Graeber ausrauben!!")
 
-print("Setze " + str(grab_zähler) + " Gräber und Schätze")
+print("Setze " + str(grab_zaehler) + " Graeber und Schaetze")
 
-for grabzahl in range(grab_zähler):
+for grabzahl in range(grab_zaehler):
     grab_position = ermittle_grab_position()
 
     # Setze Marker in den Himmel
@@ -122,11 +122,11 @@ for grabzahl in range(grab_zähler):
 
     print("Grab " + str(grabzahl) + " gesetzt bei  " + str(grab_position))
 
-verbliebene_schätze = grab_zähler
+verbliebene_schaetze = grab_zaehler
 
-minecraft.postToChat("Es sind noch " + str(verbliebene_schätze) + " Schätze zu finden")
+minecraft.postToChat("Es sind noch " + str(verbliebene_schaetze) + " Schaetze zu finden")
 
 while len(schatzliste) > 0:
     # Aktualisiere Schatzliste
-    schatzliste = aktualisiere_schätze(schatzliste)
+    schatzliste = aktualisiere_schaetze(schatzliste)
     time.sleep(1)

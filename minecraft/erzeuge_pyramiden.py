@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/python
 # --------------------------------------
 #
 #     Raspberry Pi Minecraft
@@ -49,7 +49,7 @@ def erzeuge_pyramide(position_x, position_y, position_z, breite, basis, wand, bl
     halbe_breite = int(math.floor(breite / 2))
 
     print("Spieler : {} {} {}".format(position_x, position_y, position_z))
-    print("Größe : {} Höhe : {} Halbebreite : {}".format(breite, height, halbe_breite))
+    print("Groeße : {} Hoehe : {} Halbebreite : {}".format(breite, height, halbe_breite))
 
     # Erzeuge Basis der Pyramide
     print("Erzeuge Basis")
@@ -65,22 +65,28 @@ def erzeuge_pyramide(position_x, position_y, position_z, breite, basis, wand, bl
         halbe_breite = halbe_breite - 1
 
     # Wechsel zu Spitzenblock
-    print("Welchsel zu top block")
+    print("Welchsel zu Spitzenblock")
     minecraft.setBlock(position_x, position_y + height - 1, position_z, block_oben)
 
     print("Positioniere Spieler oben")
     minecraft.player.setPos(position_x, position_y + height, position_z)
 
 
+# --------------------------------------
+#
+# Hier geht es los
+#
+# --------------------------------------
+
 # Setze Spieler Position
 minecraft.player.setPos(0, 1, 0)
 playerPos = minecraft.player.getPos()
 playerPos = minecraft_api.Vec3(int(playerPos.x), int(playerPos.y), int(playerPos.z))
 
-# Setze untere Hälfte Sandstein
+# Setze untere Haelfte Sandstein
 minecraft.setBlocks(-128, 0, -128, 128, -128, 128, SANDSTEIN)
 
-# Setze obere Hälfte Luft
+# Setze obere Haelfte Luft
 minecraft.setBlocks(-128, 1, -128, 128, 128, 128, LUFT)
 
 # Erzeuge Pyramiden

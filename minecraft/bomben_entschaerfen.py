@@ -1,10 +1,10 @@
-#!/usr/bin/python3
+#!/usr/bin/python
 # --------------------------------------
 #
 #     Raspberry Pi Minecraft
-#     Bomben entschärfen
+#     Bomben entschaerfen
 #
-# Entschärfe Bomben bevor die Zeit abläuft!
+# Entschaerfe Bomben bevor die Zeit ablaeuft!
 #
 # Kann Status Meldungen auf einem  PiFace anzeigen
 #
@@ -41,16 +41,16 @@ def sende_nachricht(msg):
 
 
 def setze_bombe():
-    # Setze TNT Block an zufälligem Ort
+    # Setze TNT Block an zufaelligem Ort
     x = rand.randint(-100, 100)
     y = 100
     z = rand.randint(-100, 100)
 
     # Gehe tiefer, wenn unterer Block Luft oder Wasser ist
-    current_block = minecraft.getBlock(x, y - 1, z)
-    while current_block == block.AIR.id or current_block == block.WATER_STATIONARY.id:
+    aktueller_block = minecraft.getBlock(x, y - 1, z)
+    while aktueller_block == block.AIR.id or aktueller_block == block.WATER_STATIONARY.id:
         y = y - 1
-        current_block = minecraft.getBlock(x, y - 1, z)
+        aktueller_block = minecraft.getBlock(x, y - 1, z)
 
     # Begrabe unterirdisch (aber nicht im Wasser)
     if minecraft.getBlock(x, y + 1, z) != block.WATER_STATIONARY.id:
@@ -59,12 +59,12 @@ def setze_bombe():
     # Setze TNT block
     minecraft.setBlock(x, y, z, block.TNT)
 
-    # Gebe timer zurück
+    # Gebe timer zurueck
     return [x, y, z, rand.randint(80, 180)]
 
 
-def entfernung_nächste_bombe():
-    # Finde Entfernung zur nächsten Bombe
+def entfernung_naechste_bombe():
+    # Finde Entfernung zur naechsten Bombe
     spieler_position = minecraft.player.getTilePos()
     mindest_entfernung = 9999
     for bombe in bomben[:]:
@@ -75,15 +75,15 @@ def entfernung_nächste_bombe():
     return int(mindest_entfernung)
 
 
-def zeit_bonus_hinzufügen(bonus_sekunden):
+def zeit_bonus_hinzufuegen(bonus_sekunden):
     # Setze Bonus Zeit für alle Timer
     sende_nachricht(str(bonus_sekunden) + " Sekunden Bonus")
     for i in xrange(len(bomben)):
         bomben[i][3] = bomben[i][3] + bonus_sekunden
 
 
-def count_down(abzug):
-    # Alle countdowns herunterzählen
+def bomben_timer_herabsetzen(abzug):
+    # Alle countdowns herunterzaehlen
     mindest_zeit = 9999
     for i in xrange(len(bomben)):
         bomben[i][3] = bomben[i][3] - abzug
@@ -91,6 +91,12 @@ def count_down(abzug):
             mindest_zeit = bomben[i][3]
     return mindest_zeit
 
+
+# --------------------------------------
+#
+# Hier geht es los
+#
+# --------------------------------------
 
 minecraft = minecraft_api.Minecraft.create()
 
@@ -113,27 +119,28 @@ bomben = []
 for i in range(0, anzahl_bomben):
     bomben.append(setze_bombe())
 
-sende_nachricht(str(anzahl_bomben) + "\nBombs activated ...")
+sende_nachricht(str(anzahl_bomben) + "\nBomben aktiviert ...")
 
 while anzahl_bomben > 0 and spiel_an:
+    # 2 Sekunden warten
     time.sleep(2)
 
-    # Check what devices remain
+    # Teste welche Bomben noch uebrig sind
     aktuelle_bomben = []
-    for dev in bomben[:]:
-        if minecraft.getBlock(dev[0], dev[1], dev[2]) != block.TNT.id:
-            zeit_bonus_hinzufügen(60)
-            sende_nachricht("Bombe entschärft\n" + str(anzahl_bomben - 1) + " übrig")
+    for bombe in bomben[:]:
+        if minecraft.getBlock(bombe[0], bombe[1], bombe[2]) != block.TNT.id:
+            zeit_bonus_hinzufuegen(60)
+            sende_nachricht("Bombe entschaerft\n" + str(anzahl_bomben - 1) + " uebrig")
         else:
-            aktuelle_bomben.append(dev)
+            aktuelle_bomben.append(bombe)
     bomben = aktuelle_bomben
 
-    # Zähle restliche Bomben
+    # Zaehle restliche Bomben
     anzahl_bomben = len(bomben)
-    # Entfernung zur nächsten Bombe
-    distance = entfernung_nächste_bombe()
-    # Aktualisiere timer
-    mindest_zeit = count_down(2)
+    # Entfernung zur naechsten Bombe
+    distance = entfernung_naechste_bombe()
+    # Aktualisiere Timer
+    mindest_zeit = bomben_timer_herabsetzen(2)
 
     # Zeige Status falls Spiel noch aktiv
     if anzahl_bomben > 0 and mindest_zeit > 0:

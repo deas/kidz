@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/python
 # --------------------------------------
 #
 #     Minecraft Python API
@@ -28,39 +28,39 @@ minecraft.postToChat("Erzeuge ein Schloss!")
 # Definiere Funktionen
 # --------------------------------------
 
-def erzeuge_wände(größe, basis_höhe, höhe, material, zinnen, gehweg):
-    # Erzeuge 4 Wände with a specified width, height and material.
+def erzeuge_waende(groesse, basis_hoehe, hoehe, material, zinnen, gehweg):
+    # Erzeuge 4 Waende mit Breite, Hoehe und Material.
     # Zinnen und Gehwege können an den Oberkanten hinzufügt werden.
 
-    minecraft.setBlocks(-größe, basis_höhe + 1, -größe, größe, basis_höhe + höhe, -größe, material)
-    minecraft.setBlocks(-größe, basis_höhe + 1, -größe, -größe, basis_höhe + höhe, größe, material)
-    minecraft.setBlocks(größe, basis_höhe + 1, größe, -größe, basis_höhe + höhe, größe, material)
-    minecraft.setBlocks(größe, basis_höhe + 1, größe, größe, basis_höhe + höhe, -größe, material)
+    minecraft.setBlocks(-groesse, basis_hoehe + 1, -groesse, groesse, basis_hoehe + hoehe, -groesse, material)
+    minecraft.setBlocks(-groesse, basis_hoehe + 1, -groesse, -groesse, basis_hoehe + hoehe, groesse, material)
+    minecraft.setBlocks(groesse, basis_hoehe + 1, groesse, -groesse, basis_hoehe + hoehe, groesse, material)
+    minecraft.setBlocks(groesse, basis_hoehe + 1, groesse, groesse, basis_hoehe + hoehe, -groesse, material)
 
-    # Füge der Oberkante Zinnen hinzu
+    # Fuege der Oberkante Zinnen hinzu
     if zinnen == True:
-        for x in range(0, (2 * größe) + 1, 2):
-            minecraft.setBlock(größe, basis_höhe + höhe + 1, (x - größe), material)
-            minecraft.setBlock(-größe, basis_höhe + höhe + 1, (x - größe), material)
-            minecraft.setBlock((x - größe), basis_höhe + höhe + 1, größe, material)
-            minecraft.setBlock((x - größe), basis_höhe + höhe + 1, -größe, material)
+        for x in range(0, (2 * groesse) + 1, 2):
+            minecraft.setBlock(groesse, basis_hoehe + hoehe + 1, (x - groesse), material)
+            minecraft.setBlock(-groesse, basis_hoehe + hoehe + 1, (x - groesse), material)
+            minecraft.setBlock((x - groesse), basis_hoehe + hoehe + 1, groesse, material)
+            minecraft.setBlock((x - groesse), basis_hoehe + hoehe + 1, -groesse, material)
 
-    # Füge Holzwege hinzu
+    # Fuege Holzwege hinzu
     if gehweg == True:
-        minecraft.setBlocks(-größe + 1, basis_höhe + höhe - 1, größe - 1, größe - 1, basis_höhe + höhe - 1, größe - 1,
+        minecraft.setBlocks(-groesse + 1, basis_hoehe + hoehe - 1, groesse - 1, groesse - 1, basis_hoehe + hoehe - 1, groesse - 1,
                             block.WOOD_PLANKS)
-        minecraft.setBlocks(-größe + 1, basis_höhe + höhe - 1, -größe + 1, größe - 1, basis_höhe + höhe - 1, -größe + 1,
+        minecraft.setBlocks(-groesse + 1, basis_hoehe + hoehe - 1, -groesse + 1, groesse - 1, basis_hoehe + hoehe - 1, -groesse + 1,
                             block.WOOD_PLANKS)
-        minecraft.setBlocks(-größe + 1, basis_höhe + höhe - 1, -größe + 1, -größe + 1, basis_höhe + höhe - 1, größe - 1,
+        minecraft.setBlocks(-groesse + 1, basis_hoehe + hoehe - 1, -groesse + 1, -groesse + 1, basis_hoehe + hoehe - 1, groesse - 1,
                             block.WOOD_PLANKS)
-        minecraft.setBlocks(größe - 1, basis_höhe + höhe - 1, -größe + 1, größe - 1, basis_höhe + höhe - 1, größe - 1,
+        minecraft.setBlocks(groesse - 1, basis_hoehe + hoehe - 1, -groesse + 1, groesse - 1, basis_hoehe + hoehe - 1, groesse - 1,
                             block.WOOD_PLANKS)
 
 
 def erzeuge_landschaft(graben_breite, graben_tiefe, insel_breite):
-    # Mache obere Hälfte Luft
+    # Mache obere Haelfte Luft
     minecraft.setBlocks(-128, 1, -128, 128, 128, 128, block.AIR)
-    # Mache untere Hälfte Dreck mit einer Schicht Gras
+    # Mache untere Haelfte Dreck mit einer Schicht Gras
     minecraft.setBlocks(-128, -1, -128, 128, -128, 128, block.DIRT)
     minecraft.setBlocks(-128, 0, -128, 128, 0, 128, block.GRASS)
     # Erzeuge Wassergraben
@@ -73,7 +73,7 @@ def erzeuge_turm(groesse, basis_hoehe, ebenen):
     # Erzeuge einen Turm Anzahl von Ebenen und Dach
     hoehe = (ebenen * 5) + 5
 
-    erzeuge_wände(groesse, basis_hoehe, hoehe, block.STONE_BRICK, True, True)
+    erzeuge_waende(groesse, basis_hoehe, hoehe, block.STONE_BRICK, True, True)
 
     # Boden
     for level in range(1, ebenen + 1):
@@ -87,7 +87,7 @@ def erzeuge_turm(groesse, basis_hoehe, ebenen):
         erzeuge_fenster(-groesse, (level * 5) + basis_hoehe + 2, 0, "W")
         erzeuge_fenster(groesse, (level * 5) + basis_hoehe + 2, 0, "E")
 
-    # Tür
+    # Tuer
     minecraft.setBlocks(0, basis_hoehe + 1, groesse, 0, basis_hoehe + 2, groesse, block.AIR)
 
 
@@ -129,11 +129,11 @@ def erzeuge_fenster(x, y, z, dir):
 print("Erzeuge Boden und Graben")
 erzeuge_landschaft(33, 10, 23)
 
-print("Erzeuge Außenwände")
-erzeuge_wände(21, 1, 5, block.STONE_BRICK, True, True)
+print("Erzeuge Außenwaende")
+erzeuge_waende(21, 1, 5, block.STONE_BRICK, True, True)
 
-print("Erzeuge Innenwände")
-erzeuge_wände(13, 1, 6, block.STONE_BRICK, True, True)
+print("Erzeuge Innenwaende")
+erzeuge_waende(13, 1, 6, block.STONE_BRICK, True, True)
 
 print("Erzeuge Turm mit 4 Ebenen")
 erzeuge_turm(5, 1, 4)
